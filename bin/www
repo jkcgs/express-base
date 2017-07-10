@@ -1,0 +1,88 @@
+#!/usr/bin/env node
+process.env['DEBUG'] = '3ds-themes:*';
+
+/**
+ * Module dependencies.
+ */
+
+const debug = require('debug')('3ds-themes:server');
+const main = require('../app');
+const config = require('../config.json');
+const express = require('express');
+const http = require('http');
+
+let port = null;
+let server = null;
+
+port = normalizePort(config.port);
+
+server = main.server;
+server.listen(port);
+
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(port) {
+    let val = process.env.PORT || port || '3000';
+    port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    let addr = server.address();
+    let bind = typeof addr === 'string' ?
+        'pipe ' + addr :
+        'port ' + addr;
+
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' needs administrator privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already on use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening(ssl) {
+    if(typeof ssl === undefined) {
+        ssl = false;
+    }
+
+    let addr = server.address();
+    let bind = typeof addr === 'string' ?
+        'pipe ' + addr :
+        'port ' + addr.port;
+    debug('Listening on ' + bind);
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>CEOsim - Error</title>
+
+    {{> head }}
+    
+    {{#if user}}
+        <link rel="stylesheet" href="/assets/css/panel.css">
+    {{/if}}
+</head>
+
+<body data-lang="es">
+    {{#if user}}
+        {{> header_panel}}
+    {{else}}
+        {{> header_landing}}
+        <div style="margin-top: 8rem">&nbsp;</div>
+    {{/if}}
+
+    <section class="container">
+        <div class="col-sm-8 col-sm-offset-2">
+            <h2>{{error.title}}</h2>
+            <h4>{{error.desc}}</h4>
+            {{#if error.trace}}<pre>{{error.trace}}</pre>{{/if}}
+        </div>
+    </section>
+    
+    {{> footer}}
+</body>
+
+</html>

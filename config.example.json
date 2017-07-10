@@ -1,0 +1,29 @@
+{
+    "port": "3000",
+    "sessionSecret": "secret key yay",
+    "development": true,
+    "exclude": [],
+
+    "database": {
+        "host": "",
+        "user": "",
+        "password": "",
+        "database": ""
+    },
+
+    "authFacebook": {
+        "clientID": "",
+        "clientSecret": "",
+        "callbackURL": "http://localhost:3000/auth/callback/facebook"
+    },
+    "authTwitter": {
+        "consumerKey": "",
+        "consumerSecret": "",
+        "callbackURL": "http://localhost:3000/auth/callback/twitter"
+    },
+    "authGoogle": {
+        "clientID": "",
+        "clientSecret": "",
+        "callbackURL": "http://localhost:3000/auth/callback/google"
+    }
+}
